@@ -277,7 +277,7 @@ public class VideoGenerator: NSObject {
       }
     }
     
-    if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+    if let documentsPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first {
       /// create a path to the video file
       completeMoviePath = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(_fileName).mp4")
       
@@ -390,7 +390,7 @@ public class VideoGenerator: NSObject {
       }
     }
     
-    if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+    if let documentsPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first {
       let outputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(fileName).mp4")
       let sourceAsset = AVURLAsset(url: videoURL, options: nil)
       let length =  CMTime(seconds: sourceAsset.duration.seconds, preferredTimescale: sourceAsset.duration.timescale)
@@ -477,7 +477,7 @@ public class VideoGenerator: NSObject {
     mutableVideoComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
     mutableVideoComposition.renderSize = CGSize(width: 1280, height: 720)
     
-    if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+    if let documentsPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first {
       let outputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(fileName).mp4")
       
       do {
@@ -710,7 +710,7 @@ public class VideoGenerator: NSObject {
       }
       
       /// check if the documents folder is available
-      if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+      if let documentsPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first {
         getTempVideoFileUrl { (_) in }
         
         /// create a path to the video file
@@ -765,7 +765,7 @@ public class VideoGenerator: NSObject {
       let videoAsset = AVURLAsset(url: videoURL)
       var videoSize = CGSize.zero
       
-      if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+      if let documentsPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first {
         /// create a path to the video file
         completeMoviePath = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(String(describing: _fileName)).mp4")
         
@@ -1224,8 +1224,8 @@ public class VideoGenerator: NSObject {
   /// - Returns: the temp file url
   private func getTempVideoFileUrl(completion: @escaping (URL) -> ()) {
     DispatchQueue.main.async {
-      if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-        let testOutputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("test.mp4")
+      if let documentsPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first {
+        let testOutputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("temp-video-gen.mp4")
         do {
           if FileManager.default.fileExists(atPath: testOutputURL.path) {
             try FileManager.default.removeItem(at: testOutputURL)
