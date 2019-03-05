@@ -209,7 +209,7 @@ public class VideoGenerator: NSObject {
               if self.audioURLs.isEmpty {
                 if let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
                   let documentDirectory = URL(fileURLWithPath: path)
-                  let newPath = documentDirectory.appendingPathComponent("\(self.fileName).m4v")
+                  let newPath = documentDirectory.appendingPathComponent("\(self.fileName).mp4")
                   
                   do {
                     let fileURLs = try FileManager.default.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
@@ -279,7 +279,7 @@ public class VideoGenerator: NSObject {
     
     if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
       /// create a path to the video file
-      completeMoviePath = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(_fileName).m4v")
+      completeMoviePath = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(_fileName).mp4")
       
       if let completeMoviePath = completeMoviePath {
         if FileManager.default.fileExists(atPath: completeMoviePath.path) {
@@ -391,7 +391,7 @@ public class VideoGenerator: NSObject {
     }
     
     if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-      let outputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(fileName).m4v")
+      let outputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(fileName).mp4")
       let sourceAsset = AVURLAsset(url: videoURL, options: nil)
       let length =  CMTime(seconds: sourceAsset.duration.seconds, preferredTimescale: sourceAsset.duration.timescale)
       
@@ -478,7 +478,7 @@ public class VideoGenerator: NSObject {
     mutableVideoComposition.renderSize = CGSize(width: 1280, height: 720)
     
     if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-      let outputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(fileName).m4v")
+      let outputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(fileName).mp4")
       
       do {
         if FileManager.default.fileExists(atPath: outputURL.path) {
@@ -714,7 +714,7 @@ public class VideoGenerator: NSObject {
         getTempVideoFileUrl { (_) in }
         
         /// create a path to the video file
-        let videoOutputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(fileName).m4v")
+        let videoOutputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(fileName).mp4")
         deleteFile(pathURL: videoOutputURL) {
           if let exportSession = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality) {
             exportSession.outputURL = videoOutputURL
@@ -767,7 +767,7 @@ public class VideoGenerator: NSObject {
       
       if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
         /// create a path to the video file
-        completeMoviePath = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(String(describing: _fileName)).m4v")
+        completeMoviePath = URL(fileURLWithPath: documentsPath).appendingPathComponent("\(String(describing: _fileName)).mp4")
         
         if let completeMoviePath = completeMoviePath {
           if FileManager.default.fileExists(atPath: completeMoviePath.path) {
@@ -865,7 +865,7 @@ public class VideoGenerator: NSObject {
                     passDictionaries.append(dictionary)
                   }
                   
-                  writer = try AVAssetWriter(outputURL: completeMoviePath, fileType: .m4v)
+                  writer = try AVAssetWriter(outputURL: completeMoviePath, fileType: .mp4)
                   let writerInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
                   writerInput.expectsMediaDataInRealTime = false
                   writerInput.transform = videoTrack?.preferredTransform ?? CGAffineTransform.identity
@@ -1225,7 +1225,7 @@ public class VideoGenerator: NSObject {
   private func getTempVideoFileUrl(completion: @escaping (URL) -> ()) {
     DispatchQueue.main.async {
       if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-        let testOutputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("test.m4v")
+        let testOutputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("test.mp4")
         do {
           if FileManager.default.fileExists(atPath: testOutputURL.path) {
             try FileManager.default.removeItem(at: testOutputURL)
